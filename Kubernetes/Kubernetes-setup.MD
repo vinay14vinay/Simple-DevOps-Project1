@@ -99,9 +99,10 @@
    To login to Kubernetes Master :::: ssh -i ~/.ssh/id_rsa admin@api.dev.k8s.vinay.in
    To check public IP: curl http://checkip.amazonaws.com
    To login into Kubernetes master from Ansible server: [ansadmin@ip-172-31-3-98 .ssh]$ ssh -i id_rsa root@"PublicIP"
-  ```
-   
+   ```
+  
 #### Deploying Nginx pods on Kubernetes
+
 1. Deploying Nginx Container
     ```sh
     kubectl run sample-nginx --image=nginx --replicas=2 --port=80
@@ -109,7 +110,6 @@
     kubectl get pods
     kubectl get deployments
    ```
-
 1. Expose the deployment as service. This will create an ELB in front of those 2 containers and allow us to publicly access them.
    ```sh
    kubectl expose deployment sample-nginx --port=80 --type=LoadBalancer
