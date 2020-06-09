@@ -60,7 +60,7 @@
    kops create cluster --cloud=aws --zones=ap-south-1b --name=demo.k8s.vinay.in --dns-zone=vinay.in --dns private 
     ```
 
-1. Create kubernetes cluser
+1. Create kubernetes cluser (to set up cluster it takes 5 to 10 mins)
     ```sh
     kops update cluster demo.k8s.vinay.in --yes
     ```
