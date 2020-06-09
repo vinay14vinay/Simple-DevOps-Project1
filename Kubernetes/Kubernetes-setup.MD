@@ -11,7 +11,7 @@
     ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
     ```
 
-1. Install kubectl on ubuntu instance
+1. Install kubectl on ubuntu instance. Also once cluster created the install it on master node
    ```sh
    curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
     chmod +x ./kubectl
@@ -73,6 +73,15 @@
 1. To list nodes
    ```sh
    kubectl get nodes
+   ```
+1. Login to master node using ssh -i ~/.ssh/id_rsa admin@api.demo.k8s.vinay.in
+   ```sh
+   Install kubectl
+   create vinay-service.yml and vinay-deploy.yml
+   ```
+   
+1. Login to ansible server
+   ```sh
    ```
 
 1. To delete cluster
