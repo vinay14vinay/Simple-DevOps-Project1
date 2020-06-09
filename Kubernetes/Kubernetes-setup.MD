@@ -41,8 +41,9 @@
 
 1. create an S3 bucket
    ```sh
-    aws s3 mb s3://demo.k8s.vinay.net
+    aws s3 mb s3://demo.k8s.vinay.in
     In case of issue To delete: aws s3 rb s3://demo.k8s.vinay.in or aws s3 rb s3://demo.k8s.vinay.in --force
+    delete attached cluster prior deleting S3 bucket 
    ```
 1. Expose environment variable:
    ```sh
@@ -78,6 +79,27 @@
     ```sh
      kops delete cluster demo.k8s.vinay.in --yes
     ```
+1. Important
+   ```sh
+   Changes may require instances to restart: kops rolling-update cluster
+   
+   Suggestions:
+   list clusters with: kops get cluster
+   edit this cluster with: kops edit cluster demo.k8s.vinay.in
+   edit your node instance group: kops edit ig --name=demo.k8s.vinay.in nodes
+   edit your master instance group: kops edit ig --name=demo.k8s.vinay.in master-ap-southeast-1b
+   
+   Suggestions:
+   validate cluster: kops validate cluster
+   list nodes: kubectl get nodes --show-labels
+   ssh to the master: ssh -i ~/.ssh/id_rsa admin@api.demo.k8s.vinay.in
+   the admin user is specific to Debian. If not using Debian please use the appropriate user based on your OS.
+   read about installing addons at: https://github.com/kubernetes/kops/blob/master/docs/operations/addons.md.
+   
+   To login to Kubernetes Master :::: ssh -i ~/.ssh/id_rsa admin@api.dev.k8s.vinay.in
+   To check public IP: curl http://checkip.amazonaws.com
+   To login into Kubernetes master from Ansible server: [ansadmin@ip-172-31-3-98 .ssh]$ ssh -i id_rsa root@"PublicIP"
+  ```
    
 #### Deploying Nginx pods on Kubernetes
 1. Deploying Nginx Container
