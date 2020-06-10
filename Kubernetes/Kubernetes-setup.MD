@@ -1,4 +1,4 @@
-# Setup Kubernetes (K8s) Cluster on AWS
+# Setup Kubernetes (K8s) Cluster on AWS. Deploy code using Jenkins, Ansible and Docker
 
 
 1. Create Ubuntu EC2 instance
@@ -85,14 +85,23 @@
    - Login to ansible server -> sudo su - ansadmin -> cd .ssh -> cat id_rsa.pub -> Copy the rsa key
    - Go to Kubernetes master with root id -> cd .ssh -> cat authorized_keys -> append the rsa key to "cat >> authorized_keys"
    - Go to ansible server to test passwordless authentication. Since both machines on different VPCs so 
-     use public IP for connection -> [ansadmin@ip-172-**-**-98 .ssh]$ ssh -i id_rsa root@"PublicIP" 
+     use public IP for connection -> [ansadmin@ip-172-**-**-98 .ssh]$ ssh -i id_rsa root@"KubernetesMasterPublicIP" 
      "root@" is used so that it will login into Kubernetes server as root user
    ```
+   
+1. Create Ansible playbooks
+   ```sh
+   - On ansible server -> sudo su - ansadmin -> cd /opt -> sudo mkdir k8s-lab
+   - Give recursive admin permission to ansadmin -> sudo chown -R ansadmin:ansadmin /opt/k8s-lab
+   - cd K8s-lab -> for to create image make file "create-simple-devops-image.yml" 
+   - list [ansible-server] in new inventory file hosts with as "localhost" and [kubernetes] with "KubernetesMasterPublicIP"
+   - Copy executing deployment file "kubernetes-vinay-deployment.yml" and initiate service file "kubernetes-vinay-service.yml"
+   - Copy "Dockerfile" for to deploy code to Tomcat server
 
 1. To delete cluster
-    ```sh
+   ```sh
      kops delete cluster demo.k8s.vinay.in --yes
-    ```
+   ```
 1. Important
    ```sh
    Changes may require instances to restart: kops rolling-update cluster
