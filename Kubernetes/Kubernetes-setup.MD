@@ -98,6 +98,19 @@
    - Copy executing deployment file "kubernetes-vinay-deployment.yml" and initiate service file "kubernetes-vinay-service.yml"
    - Copy "Dockerfile" for to deploy code to Tomcat server
 
+1. Create CI & CD job in Jenkins
+   ```sh
+   - Kubernetes-CI-Job to create docker image -> maven project -> clean install package 
+   - In Post build Send build artifacts from maven path webapp/target/*.war to ansible server -> remote directory //opt//k8s-lab
+   - execute command to create image under this location -> 
+     ansible-playbook -i /opt/k8s-lab/hosts /opt/k8s-lab/create-simple-devops-image.yml;
+   - Kuberenetes-CD-Job for deployment -> freestyle -> Post build action on ansible server -> send build artifacts to ssh
+     ansible-playbooks -i  /opt/k8s-lab/hosts /opt/k8s-lab/kubernetes-vinay-deployment.yml;
+     ansible-playbooks -i  /opt/k8s-lab/hosts /opt/k8s-lab/kubernetes-vinay-service.yml;
+   - Add Kuberenetes-CD-Job in Kubernetes-CI-Job 's build other projects on stable build
+   - Before running jobs check details in Kubernetes master server:
+     -> kuberctl get pods -> kubectl get deployment -> kubectl get services
+
 1. To delete cluster
    ```sh
      kops delete cluster demo.k8s.vinay.in --yes
