@@ -128,6 +128,8 @@
    ```sh
    Changes may require instances to restart: kops rolling-update cluster
    
+   In YAML file change "become:true" to "become:user" to customise to different user. Also add "user:ansadmin"
+   
    Suggestions:
    - list clusters with: kops get cluster
    - edit this cluster with: kops edit cluster demo.k8s.vinay.in
