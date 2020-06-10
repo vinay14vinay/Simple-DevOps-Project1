@@ -76,12 +76,17 @@
    ```
 1. Login to master node using ssh -i ~/.ssh/id_rsa admin@api.demo.k8s.vinay.in
    ```sh
-   Install kubectl
-   create vinay-service.yml and vinay-deploy.yml
+   - Install kubectl with root id
+   - create vinay-service.yml and vinay-deploy.yml
    ```
    
-1. Login to ansible server
+1. Enable passwordless authentication between Kubernetes master server and ansible server
    ```sh
+   - Login to ansible server -> sudo su - ansadmin -> cd .ssh -> cat id_rsa.pub -> Copy the rsa key
+   - Go to Kubernetes master with root id -> cd .ssh -> cat authorized_keys -> append the rsa key to "cat >> authorized_keys"
+   - Go to ansible server to test passwordless authentication. Since both machines on different VPCs so 
+     use public IP for connection -> [ansadmin@ip-172-**-**-98 .ssh]$ ssh -i id_rsa root@"PublicIP" 
+     "root@" is used so that it will login into Kubernetes server as root user
    ```
 
 1. To delete cluster
@@ -93,21 +98,21 @@
    Changes may require instances to restart: kops rolling-update cluster
    
    Suggestions:
-   list clusters with: kops get cluster
-   edit this cluster with: kops edit cluster demo.k8s.vinay.in
-   edit your node instance group: kops edit ig --name=demo.k8s.vinay.in nodes
-   edit your master instance group: kops edit ig --name=demo.k8s.vinay.in master-ap-southeast-1b
+   - list clusters with: kops get cluster
+   - edit this cluster with: kops edit cluster demo.k8s.vinay.in
+   - edit your node instance group: kops edit ig --name=demo.k8s.vinay.in nodes
+   - edit your master instance group: kops edit ig --name=demo.k8s.vinay.in master-ap-southeast-1b
    
    Suggestions:
-   validate cluster: kops validate cluster
-   list nodes: kubectl get nodes --show-labels
-   ssh to the master: ssh -i ~/.ssh/id_rsa admin@api.demo.k8s.vinay.in
-   the admin user is specific to Debian. If not using Debian please use the appropriate user based on your OS.
-   read about installing addons at: https://github.com/kubernetes/kops/blob/master/docs/operations/addons.md.
+   - validate cluster: kops validate cluster
+   - list nodes: kubectl get nodes --show-labels
+   - ssh to the master: ssh -i ~/.ssh/id_rsa admin@api.demo.k8s.vinay.in
+   - the admin user is specific to Debian. If not using Debian please use the appropriate user based on your OS.
+   - read about installing addons at: https://github.com/kubernetes/kops/blob/master/docs/operations/addons.md.
    
-   To login to Kubernetes Master :::: ssh -i ~/.ssh/id_rsa admin@api.dev.k8s.vinay.in
-   To check public IP: curl http://checkip.amazonaws.com
-   To login into Kubernetes master from Ansible server: [ansadmin@ip-172-31-3-98 .ssh]$ ssh -i id_rsa root@"PublicIP"
+   - To login to Kubernetes Master :::: ssh -i ~/.ssh/id_rsa admin@api.dev.k8s.vinay.in
+   - To check public IP: curl http://checkip.amazonaws.com
+   - To login into Kubernetes master from Ansible server: [ansadmin@ip-172-**-**-98 .ssh]$ ssh -i id_rsa root@"PublicIP"
    ```
   
 #### Deploying Nginx pods on Kubernetes
