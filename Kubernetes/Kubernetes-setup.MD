@@ -105,12 +105,19 @@
    - execute command to create image under this location -> 
      ansible-playbook -i /opt/k8s-lab/hosts /opt/k8s-lab/create-simple-devops-image.yml;
    - Kuberenetes-CD-Job for deployment -> freestyle -> Post build action on ansible server -> send build artifacts to ssh
-     ansible-playbooks -i  /opt/k8s-lab/hosts /opt/k8s-lab/kubernetes-vinay-deployment.yml;
-     ansible-playbooks -i  /opt/k8s-lab/hosts /opt/k8s-lab/kubernetes-vinay-service.yml;
+     ansible-playbook -i  /opt/k8s-lab/hosts /opt/k8s-lab/kubernetes-vinay-deployment.yml;
+     ansible-playbook -i  /opt/k8s-lab/hosts /opt/k8s-lab/kubernetes-vinay-service.yml;
    - Add Kuberenetes-CD-Job in Kubernetes-CI-Job 's build other projects on stable build
    - Before running jobs check details in Kubernetes master server:
-     -> kuberctl get pods -> kubectl get deployment -> kubectl get services
+     -> kubectl get pods -> kubectl get deployment -> kubectl get services
 
+1. Enable passwordless authentication with localhost
+   ```sh
+   - login with userid for passwordless authentication -> ssh-keygen -> cd .ssh -> cat id_rsa.pub
+   - append rsa key to authorized_keys -> cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+    # - not required as such -> chmod og-wx ~/.ssh/authorized_keys 
+   ```
+   
 1. To delete cluster
    ```sh
      kops delete cluster demo.k8s.vinay.in --yes
