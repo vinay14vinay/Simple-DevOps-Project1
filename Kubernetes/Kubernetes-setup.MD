@@ -78,7 +78,8 @@
    ```
 1. Login to master node using ssh -i ~/.ssh/id_rsa admin@api.demo.k8s.vinay.in
    ```sh
-   - Install kubectl with root id
+   - Check version : kubectl version
+   - Install kubectl with root id. Check version again , it has latest now
    - create vinay-service.yml and vinay-deploy.yml
    ```
    
@@ -148,7 +149,7 @@
    - To login into Kubernetes master from Ansible server: [ansadmin@ip-172-**-**-98 .ssh]$ ssh -i id_rsa root@"PublicIP"
    ```
    
- 1. Issue with Master Nodekops update cluster demo.k8s.vinay.in --yes not ready
+ 1. Issue with Master Node NOT ready
    ```sh
    - restart master node from EC2 insatnce 
    - remove old key from server : ssh-keygen -f "/root/.ssh/known_hosts" -R "api.demo.k8s.vinay.in"
