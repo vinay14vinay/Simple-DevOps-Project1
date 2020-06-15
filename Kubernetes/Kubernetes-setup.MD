@@ -147,6 +147,15 @@
    - To check public IP: curl http://checkip.amazonaws.com
    - To login into Kubernetes master from Ansible server: [ansadmin@ip-172-**-**-98 .ssh]$ ssh -i id_rsa root@"PublicIP"
    ```
+   
+ 1. Issue with Master Nodekops update cluster demo.k8s.vinay.in --yes not ready
+   ```sh
+   - restart master node from EC2 insatnce 
+   - remove old key from server : ssh-keygen -f "/root/.ssh/known_hosts" -R "api.demo.k8s.vinay.in"
+   - Update cluster: kops update cluster demo.k8s.vinay.in --yes
+   - Restart cluster: kops rolling-update cluster
+   - Login Master now: ssh -i ~/.ssh/id_rsa admin@api.demo.k8s.vinay.in
+   ```
   
 #### Deploying Nginx pods on Kubernetes
 
